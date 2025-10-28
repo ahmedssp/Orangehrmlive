@@ -75,7 +75,8 @@ cd Orangehrmlive
 
 2️⃣ Install dependencies
 
-```mvn clean install
+```
+mvn clean install
 ```
 
 3️⃣ Ensure test data file exists
@@ -121,6 +122,7 @@ logs/
 
 A. Abdelsalam
 💼 Automation Engineer | QA Specialist | Selenium Expert
+
 📧 https://www.linkedin.com/in/ahmed-mostafa-ab7449101/
 
 
