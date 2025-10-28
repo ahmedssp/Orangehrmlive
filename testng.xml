@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="OrangeHRM Test Suite">
+    <test name="Login then Dashboard Tests">
+        <classes>
+            <!-- Runs first -->
+            <class name="Testing_Package.testLogin"/>
+
+            <!-- Runs second -->
+            <class name="Testing_Package.testDashbord"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,11 @@
+{
+  "login": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+  "newUser": {
+    "employeeName": "james butler",
+    "password": "xx123_3f@!wec"
+  },
+  "expectedUrl": "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+}
