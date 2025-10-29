@@ -23,23 +23,25 @@ Orangehrmlive/
 ├── src/
 │ ├── main/
 │ │ └── java/
-│ │ ├── Base_Package/
-│ │ │ ├── TestBase.java
-│ │ │ └── JsonDataReader.java
-│ │ ├── Pages/
-│ │ │ ├── P0_Login.java
-│ │ │ └── P1_Dashbord.java
-│ │ └── Utilities/
-│ │ └── ...
+│ │     ├── Base_Package/
+│ │     │   ├── TestBase.java
+│ │     │   └── JsonDataReader.java
+│ │     ├── Pages/
+│ │     │   ├── P0_Login.java
+│ │     │   └── P1_Dashbord.java
+│ │     └── Utilities/
+│ │         └── ...
 │ └── test/
-│ ├── java/
-│ │ └── Testing_Package/
-│ │ ├── testDashbord.java
-│ │ └── testLogin.java
-│ └── resources/
-│ └── TestData/
-│ └── TestData.json
+│     ├── java/
+│     │   └── Testing_Package/
+│     │       ├── testDashbord.java
+│     │       ├── testLogin.java
+│     │       └── OrangeHRMRecruitmentTestApi.java  <-- REST API tests
+│     └── resources/
+│         └── TestData/
+│             └── TestData.json
 └── README.md
+
 ```
 
 ---
@@ -55,13 +57,13 @@ Orangehrmlive/
 
 ## 🧰 Libraries Used
 ```
-| Library | Purpose |
-|----------|----------|
-| Selenium WebDriver | Browser automation |
-| TestNG | Test execution framework |
-| Jackson | JSON data parsing |
-| Extent Reports | HTML test reporting |
-| SLF4J | Logging API |
+|Library	Purpose
+Selenium WebDriver	Browser automation
+TestNG	Test execution framework
+Jackson	JSON data parsing
+Extent Reports	HTML test reporting
+SLF4J	Logging API
+RestAssured	REST API automation
 ```
 
 
