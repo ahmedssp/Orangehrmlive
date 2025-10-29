@@ -10,7 +10,7 @@ import org.testng.asserts.SoftAssert;
 import static io.restassured.RestAssured.given;
 
 
-public class OrangeHRMRecruitmentTest {
+public class OrangeHRMRecruitmentTestApi {
 
     private String baseUrl = "https://opensource-demo.orangehrmlive.com/web/index.php";
     private String sessionCookie;

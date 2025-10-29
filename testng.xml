@@ -5,10 +5,10 @@
     <test name="Login then Dashboard Tests">
         <classes>
             <!-- Runs first -->
-            <class name="Testing_Package.testLogin"/>
+            <class name="Testing_Package.testDashbord"/>
 
             <!-- Runs second -->
-            <class name="Testing_Package.testDashbord"/>
+            <class name="Testing_Package.OrangeHRMRecruitmentTestApi"/>
         </classes>
     </test>
 </suite>
