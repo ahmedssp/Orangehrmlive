@@ -36,7 +36,7 @@ Orangehrmlive/
 │     │   └── Testing_Package/
 │     │       ├── testDashbord.java
 │     │       ├── testLogin.java
-│     │       └── OrangeHRMRecruitmentTest.java  <-- REST API tests
+│     │       └── OrangeHRMRecruitmentTestApi.java  <-- REST API tests
 │     └── resources/
 │         └── TestData/
 │             └── TestData.json
