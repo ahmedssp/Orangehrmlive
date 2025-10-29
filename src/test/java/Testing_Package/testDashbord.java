@@ -59,7 +59,6 @@ public class testDashbord extends TestBase {
         P1.addNewUser(employeeName, newUsername, newUserPassword);
         logger.info("New user added: " + newUsername);
 
-        P1.goToAdminTab();
         // Step 5: Verify record count increased
         int afterAddCount = P1.getRecordCount();
         Assert.assertEquals(afterAddCount, beforeCount + 1,
@@ -73,6 +72,7 @@ public class testDashbord extends TestBase {
 
         // Step 7: Verify count restored
         P1.goToAdminTab();
+
         int afterDeleteCount = P1.getRecordCount();
         Assert.assertEquals(afterDeleteCount, beforeCount,
                 "Record count did not decrease after deleting user.");

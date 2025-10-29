@@ -13,6 +13,8 @@ public class P1_Dashbord {
     WebDriver driver;
     WebDriverWait wait;
     Faker faker = new Faker();
+    private By ResetBottom =By.xpath("//button[normalize-space()='Reset']");
+
     // Constructor
     public P1_Dashbord(WebDriver driver) {
         this.driver = driver;
@@ -62,7 +64,6 @@ public class P1_Dashbord {
     public int getRecordCount() {
         synchronization_methods.WaitForvisibilityOfElementLocated(driver, recordCount);
         String text = driver.findElement(recordCount).getText(); // e.g. "(36) Records Found"
-        System.out.println("test:"+text);
         return Integer.parseInt(text.replaceAll("[^0-9]", ""));
     }
     public void enterUniqueUsername(WebDriver driver, String baseUsername) {
@@ -89,10 +90,10 @@ public class P1_Dashbord {
 
             // Step 4️⃣: Wait again to confirm the error is gone
             wait.until(ExpectedConditions.invisibilityOfElementLocated(alreadyExistsMsg));
-            System.out.println("✅ Username is now unique and accepted.");
+            System.out.println("Username is now unique and accepted.");
 
         } catch (Exception e) {
-            System.out.println("✅ No duplicate username message appeared.");
+            System.out.println("No duplicate username message appeared.");
         }
     }
     // Add a new user
@@ -133,6 +134,7 @@ public class P1_Dashbord {
 
         synchronization_methods.WaitForvisibilityOfElementLocated(driver, confirmDeleteButton);
         driver.findElement(confirmDeleteButton).click();
+        synchronization_methods.WaitForvisibilityOfElementLocated(driver,recordCount);
     }
 
     // ------------------- Helper Methods -------------------
@@ -178,4 +180,9 @@ public class P1_Dashbord {
 
     }
 
- }
+    public void ResetSearch() {
+        synchronization_methods.waitFor_Element_toBe_clickable(driver,ResetBottom);
+        driver.findElement(ResetBottom).click();
+        synchronization_methods.WaitForvisibilityOfElementLocated(driver,recordCount);
+    }
+}

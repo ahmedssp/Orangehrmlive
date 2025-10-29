@@ -68,5 +68,25 @@
         <artifactId>commons-io</artifactId>
         <version>2.19.0</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>5.5.6</version>
+        <scope>test</scope>
+    </dependency>
+    <!--JSON Path for RestAssured -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>json-path</artifactId>
+        <version>5.4.0</version>
+        <scope>test</scope>
+    </dependency>
+    <!-- SLF4J simple logger to avoid warnings -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>2.0.9</version>
+    </dependency>
 </dependencies>
 </project>
