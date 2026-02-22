@@ -55,7 +55,6 @@ Project
 │       │   │   └── DriverFactory.java
 │       │   │
 │       │   ├── testing_package/
-│       │   │   ├── orangeHRMAddCandidateAPI.java
 │       │   │   ├── TestClass.java
 │       │   │   └── TestListener.java
 │       │   │
