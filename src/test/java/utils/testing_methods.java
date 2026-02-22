@@ -1,4 +1,4 @@
-package Utility;
+package utils;
 
 //import static Listeners.testNg_listeners_simple.PassMessege;
 //import static Listeners.testNg_listeners_simple.failledMessege;

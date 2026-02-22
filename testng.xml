@@ -3,12 +3,11 @@
 
 <suite name="OrangeHRM Test Suite">
     <test name="Login then Dashboard Tests">
+<!--        <parameter name="browser" value="chrome"/>-->
         <classes>
-            <!-- Runs first -->
-            <class name="Testing_Package.testDashbord"/>
-
-            <!-- Runs second -->
-            <class name="Testing_Package.OrangeHRMRecruitmentTestApi"/>
+            <class name="testing_package.TestDashbord"/>
+<!--            <class name="testing_package.OrangeHRMRecruitmentTestApi"/>-->
         </classes>
     </test>
+
 </suite>

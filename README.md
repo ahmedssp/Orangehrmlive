@@ -23,7 +23,7 @@ Orangehrmlive/
 ├── src/
 │ ├── main/
 │ │ └── java/
-│ │     ├── Base_Package/
+│ │     ├── base/
 │ │     │   ├── TestBase.java
 │ │     │   └── JsonDataReader.java
 │ │     ├── Pages/
@@ -33,7 +33,7 @@ Orangehrmlive/
 │ │         └── ...
 │ └── test/
 │     ├── java/
-│     │   └── Testing_Package/
+│     │   └── testing_package/
 │     │       ├── testDashbord.java
 │     │       ├── testLogin.java
 │     │       └── OrangeHRMRecruitmentTestApi.java  <-- REST API tests
@@ -108,7 +108,7 @@ mvn clean test
 
 Run a specific test class
 ```
-mvn -Dtest=Testing_Package.testDashbord test
+mvn -Dtest=testing_package.TestDashbord test
 ```
 📊 Reports & Logs
 
