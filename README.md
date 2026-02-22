@@ -1,130 +1,341 @@
-# 🧪 OrangeHRM Automation Framework
+# 🚀 OrangeHRM Test Automation Framework
 
-A **Selenium TestNG-based automation framework** for [OrangeHRM](https://opensource-demo.orangehrmlive.com/), built using the **Page Object Model (POM)** design pattern and **data-driven testing** with JSON files.
+## 📌 Project Overview
+
+This project is a **Hybrid Test Automation Framework** developed using:
+
+* **Java**
+* **Selenium WebDriver**
+* **TestNG**
+* **Maven**
+* **Extent Reports**
+* **REST Assured (API Testing)**
+* **Jackson (JSON handling)**
+
+The framework follows:
+
+* ✅ Page Object Model (POM)
+* ✅ Factory Design Pattern
+* ✅ Listener Design Pattern
+* ✅ Data-Driven Testing
+* ✅ YAML-based Configuration Management
 
 ---
 
-## 🚀 Features
-
-✅ Built using **Java + Selenium + TestNG**  
-✅ **Page Object Model (POM)** for better maintainability  
-✅ **JSON-based test data** — no hardcoded values in tests  
-✅ **Logging & reporting** with Extent Reports  
-✅ **Cross-browser testing** (Chrome, Firefox, Edge)  
-✅ Ready for **CI/CD integration** (Jenkins, GitHub Actions)
-
----
-
-## 🗂️ Project Structure
+# 📂 Detailed Project Structure
 
 ```
-Orangehrmlive/
-├── pom.xml
+Project
+│
+├── Reports/
+│   └── (Generated Extent Reports & Screenshots)
+│
 ├── src/
-│ ├── main/
-│ │ └── java/
-│ │     ├── base/
-│ │     │   ├── TestBase.java
-│ │     │   └── JsonDataReader.java
-│ │     ├── Pages/
-│ │     │   ├── P0_Login.java
-│ │     │   └── P1_Dashbord.java
-│ │     └── Utilities/
-│ │         └── ...
-│ └── test/
-│     ├── java/
-│     │   └── testing_package/
-│     │       ├── testDashbord.java
-│     │       ├── testLogin.java
-│     │       └── OrangeHRMRecruitmentTestApi.java  <-- REST API tests
-│     └── resources/
-│         └── TestData/
-│             └── TestData.json
-└── README.md
-
+│   │
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── Handler/
+│   │   │   │   └── (Reusable actions & wrapper methods)
+│   │   │   │
+│   │   │   ├── Pages/
+│   │   │   │   └── (Page Object classes - locators & methods)
+│   │   │   │
+│   │   │   └── org.example/
+│   │   │       └── (Core logic / base models if used)
+│   │   │
+│   │   └── resources/
+│   │       
+│   │
+│   └── test/
+│       ├── java/
+│       │   ├── base/
+│       │   │   └── BaseTest.java
+│       │   │
+│       │   ├── factory/
+│       │   │   └── DriverFactory.java
+│       │   │
+│       │   ├── testing_package/
+│       │   │   ├── TestClass.java
+│       │   │   └── TestListener.java
+│       │   │
+│       │   └── utils/
+│       │       ├── ConfigReader.java
+│       │       ├── ExtentManager.java
+│       │       ├── ReporterUtil.java
+│       │       ├── ScreenshotUtil.java
+│       │       ├── TestDataUtil.java
+│       │       └── testing_methods.java
+│       │
+│       └── resources/
+│           ├── Config.yaml
+│           └── TestData.json
+│
+├── target/
+│   └── (Auto-generated build files)
+│
+└── .gitignore
 ```
 
 ---
 
-## ⚙️ Prerequisites
+# 🧩 Framework Architecture Explanation
 
-- **Java 17+**
-- **Maven 3.8+**
-- **Google Chrome or Firefox** installed
-- Internet connection (for OrangeHRM demo site)
+## 🔹 1. Handler Package (`src/main/java/Handler`)
+
+Contains reusable wrapper methods such as:
+
+* Click actions
+* SendKeys
+* Wait methods
+* Common element interactions
+* Custom Selenium utilities
+
+👉 Purpose: Reduce code duplication and improve readability.
 
 ---
 
-## 🧰 Libraries Used
-```
-|Library	Purpose
-Selenium WebDriver	Browser automation
-TestNG	Test execution framework
-Jackson	JSON data parsing
-Extent Reports	HTML test reporting
-SLF4J	Logging API
-RestAssured	REST API automation
-```
+## 🔹 2. Pages Package (`src/main/java/Pages`)
 
+Implements **Page Object Model (POM)**:
 
-## 📦 Installation & Setup
+Each page class contains:
 
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/<your-username>/Orangehrmlive.git
-cd Orangehrmlive
-```
+* WebElement locators
+* Page methods (business logic)
+* Page-specific validations
 
-2️⃣ Install dependencies
+Example:
 
 ```
-mvn clean install
+LoginPage.java
+DashboardPage.java
+RecruitmentPage.java
 ```
 
-3️⃣ Ensure test data file exists
+👉 Improves maintainability and scalability.
 
+---
+
+## 🔹 3. Base Package (`src/test/java/base`)
+
+### BaseTest.java
+
+Responsible for:
+
+* Initializing WebDriver
+* Loading configuration
+* Setup (@BeforeMethod / @BeforeClass)
+* Teardown (@AfterMethod / @AfterClass)
+* Browser lifecycle management
+
+---
+
+## 🔹 4. Factory Package (`src/test/java/factory`)
+
+### DriverFactory.java
+
+Implements Factory Design Pattern:
+
+* Creates WebDriver instance
+* Supports multiple browsers
+* Manages ThreadLocal driver (parallel execution ready)
+
+---
+
+## 🔹 5. Testing Package (`src/test/java/testing_package`)
+
+Contains:
+
+### 🧪 TestClass.java
+
+* UI test cases
+
+### 🔌 orangeHRMAddCandidateAPI.java
+
+* API test cases using REST Assured
+
+### 🎧 TestListener.java
+
+* Implements TestNG Listeners
+* Captures screenshots on failure
+* Logs test results
+* Integrates with Extent Reports
+
+---
+
+## 🔹 6. Utils Package (`src/test/java/utils`)
+
+### ConfigReader.java
+
+* Reads `Config.yaml`
+* Manages environment variables
+
+### ExtentManager.java
+
+* Initializes Extent Report
+* Manages report instance
+
+### ReporterUtil.java
+
+* Handles logging inside reports
+
+### ScreenshotUtil.java
+
+* Captures screenshots on failure
+* Stores images inside Reports folder
+
+### TestDataUtil.java
+
+* Reads test data from `TestData.json`
+* Supports data-driven testing
+
+### testing_methods.java
+
+* Common reusable test methods
+
+---
+
+## 🔹 7. Test Resources
+
+### 📄 Config.yaml
+
+Stores environment configuration:
+
+```yaml
+browser: chrome
+baseUrl: https://opensource-demo.orangehrmlive.com
+timeout: 10
+headless: false
 ```
-src/test/resources/TestData/TestData.json
-```
 
-Example content:
+---
 
-```{
-  "login": {
-    "username": "Admin",
-    "password": "admin123"
-  },
-  "newUser": {
-    "employeeName": "James Butler",
-    "password": "xx123_3f@!wec"
-  },
-  "expectedUrl": "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+### 📄 TestData.json
+
+Used for:
+
+* Login credentials
+* Candidate data
+* Form inputs
+* API payloads
+
+Example:
+
+```json
+{
+  "username": "Admin",
+  "password": "admin123"
 }
 ```
-▶️ Running the Tests
+
+---
+
+# ⚙️ Design Patterns Used
+
+* Page Object Model (POM)
+* Factory Pattern
+* Singleton (ExtentManager)
+* Listener Pattern
+* Data-Driven Design
+
+---
+
+# 🧪 Testing Scope
+
+### ✔ UI Automation
+
+* Login functionality
+* Candidate management
+* Form validation
+* Navigation flows
+
+### ✔ API Automation
+
+* Add Candidate API
+* Response validation
+* Status code verification
+* JSON schema validation
+
+---
+
+# 📊 Reporting & Logging
+
+* Extent Reports generated after execution
+* Screenshots attached for failed tests
+* Logs integrated with TestNG Listener
+
+Report Location:
+
 ```
+/Reports
+```
+
+---
+
+# ▶️ How to Execute Tests
+
+## 🔹 Run Using Maven
+
+```bash
 mvn clean test
 ```
 
-Run a specific test class
-```
-mvn -Dtest=testing_package.TestDashbord test
-```
-📊 Reports & Logs
+## 🔹 Run Specific Test
 
-Extent HTML Reports:
+```bash
+mvn test -Dtest=TestClass
 ```
-test-output/ExtentReport/
-```
-Log Files:
-```
-logs/
-```
-👨‍💻 Author
 
-A. Abdelsalam
-💼 Automation Engineer | QA Specialist | Selenium Expert
+## 🔹 Run via IDE
 
-📧 https://www.linkedin.com/in/ahmed-mostafa-ab7449101/
+* Right-click on `testng.xml`
+* Click Run
 
+---
+
+# 🌍 Environment Support
+
+* Chrome
+* Edge
+* Firefox (if configured)
+* Headless execution support
+
+---
+
+# 🔐 Parallel Execution
+
+DriverFactory supports:
+
+* ThreadLocal WebDriver
+* Parallel execution through TestNG XML
+
+---
+
+# 📦 Key Dependencies
+
+* Selenium WebDriver
+* TestNG
+* REST Assured
+* WebDriverManager
+* ExtentReports
+* Jackson
+* Maven
+
+---
+
+# 🚀 Future Enhancements
+
+* CI/CD integration (Jenkins / GitHub Actions)
+* Docker execution
+* Allure Reporting
+* Cross-browser grid support
+* Environment profiles (QA / UAT / Prod)
+
+---
+
+# 👨‍💻 Author
+
+Ahmed Abdelsalame
+Automation Test Engineer
+Java | Selenium | API | TestNG
 
