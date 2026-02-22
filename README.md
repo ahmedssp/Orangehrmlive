@@ -44,9 +44,7 @@ Project
 │   │   │       └── (Core logic / base models if used)
 │   │   │
 │   │   └── resources/
-│   │       └── Config.yaml
-│   │       │
-│   │       └── TestData.json
+│   │       
 │   │
 │   └── test/
 │       ├── java/
