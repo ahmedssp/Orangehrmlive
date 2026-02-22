@@ -5,7 +5,6 @@ import Pages.P1_Dashbord;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -57,7 +56,7 @@ public class TestClass extends BaseTest {
 
 
     @Test(dependsOnMethods = "login")
-    public void addAndDeleteValidation() throws InterruptedException {
+    public void addAndDeleteValidationUI() throws InterruptedException {
 
         String employeeName = testData.get("newUser").get("employeeName").asText();
         String newUserPassword = testData.get("newUser").get("password").asText();
@@ -91,42 +90,34 @@ public class TestClass extends BaseTest {
         ReporterUtil.reporter("pass", "Record count restored.");
     }
     @Test(priority = 3, dependsOnMethods = "login")
-    public void testAddUserViaAPI() throws InterruptedException {
-        // Extract CSRF token as before (if needed)
-        String csrfToken = driver.findElement(By.name("csrf_token")).getAttribute("value");
+    public void testAddUserViaAPI() {
 
-        // Prepare dynamic username
+        RestAssured.baseURI = "https://opensource-demo.orangehrmlive.com";
+
         String newUsername = "AutoUser_" + System.currentTimeMillis();
 
-        // Create JSON payload
         String payload = """
     {
-      "userRole": "Admin",
-      "employeeName": "Ranga Akunuri",
-      "status": "Enabled",
       "username": "%s",
       "password": "StrongP@ssw0rd",
-      "confirmPassword": "StrongP@ssw0rd"
+      "status": true,
+      "userRoleId": 1,
+      "empNumber": 7
     }
     """.formatted(newUsername);
 
-        // Send POST request to add user
         Response response = RestAssured
                 .given()
                 .cookies(sessionCookies)
                 .header("Content-Type", "application/json")
-                .header("X-CSRF-Token", csrfToken)
                 .body(payload)
-                .post("/web/index.php/api/v2/admin/users")  // confirm the correct endpoint
+                .post("/web/index.php/api/v2/admin/users")
                 .then()
                 .extract().response();
 
-        ReporterUtil.reporter("info", "Add User API status: " + response.getStatusCode());
-        ReporterUtil.reporter("info", "Response body: " + response.getBody().asString());
+        System.out.println("Status Code: " + response.getStatusCode());
+        System.out.println("Body: " + response.getBody().asString());
 
-        Assert.assertTrue(
-                response.getStatusCode() == 200 || response.getStatusCode() == 201,
-                "Failed to add user via API."
-        );
+        Assert.assertEquals(response.getStatusCode(), 200);
     }
 }

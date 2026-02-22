@@ -5,9 +5,10 @@
     <test name="Login then Dashboard Tests">
 <!--        <parameter name="browser" value="chrome"/>-->
         <classes>
-            <class name="testing_package.TestDashbord"/>
+<!--            <class name="testing_package."/>-->
 <!--            <class name="testing_package.OrangeHRMRecruitmentTestApi"/>-->
         </classes>
     </test>
 
 </suite>
+
