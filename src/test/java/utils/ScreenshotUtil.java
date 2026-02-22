@@ -14,5 +14,4 @@ public class ScreenshotUtil {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
     }
 
-    // Optional: existing file capture method if needed
 }

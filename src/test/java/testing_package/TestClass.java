@@ -14,6 +14,7 @@ import utils.ReporterUtil;
 import utils.TestDataUtil;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ public class TestClass extends BaseTest {
     private JsonNode testData;
     private P1_Dashbord P1;
     private Map<String, String> sessionCookies;
+    private int createdUserId;
     @BeforeClass
     public void loadTestData() {
         testData = TestDataUtil.readJson("src/test/resources/TestData.json");
@@ -96,21 +98,18 @@ public class TestClass extends BaseTest {
 
         String newUsername = "AutoUser_" + System.currentTimeMillis();
 
-        String payload = """
-    {
-      "username": "%s",
-      "password": "StrongP@ssw0rd",
-      "status": true,
-      "userRoleId": 1,
-      "empNumber": 7
-    }
-    """.formatted(newUsername);
+        Map<String, Object> body = new HashMap<>();
+        body.put("username", newUsername);
+        body.put("password", "StrongP@ssw0rd");
+        body.put("status", true);
+        body.put("userRoleId", 1);
+        body.put("empNumber", 7);
 
         Response response = RestAssured
                 .given()
                 .cookies(sessionCookies)
                 .header("Content-Type", "application/json")
-                .body(payload)
+                .body(body)
                 .post("/web/index.php/api/v2/admin/users")
                 .then()
                 .extract().response();
@@ -119,5 +118,29 @@ public class TestClass extends BaseTest {
         System.out.println("Body: " + response.getBody().asString());
 
         Assert.assertEquals(response.getStatusCode(), 200);
+
+        createdUserId = response.jsonPath().getInt("data.id");
     }
-}
+    @Test(dependsOnMethods = {"login", "testAddUserViaAPI"})
+    public void testDeleteUserViaAPI() {
+
+        RestAssured.baseURI = "https://opensource-demo.orangehrmlive.com";
+
+        Map<String, Object> deleteBody = new HashMap<>();
+        deleteBody.put("ids", List.of(createdUserId));
+
+        Response deleteResponse = RestAssured
+                .given()
+                .cookies(sessionCookies)
+                .header("Content-Type", "application/json")
+                .body(deleteBody)
+                .delete("/web/index.php/api/v2/admin/users")
+                .then()
+                .extract().response();
+
+        System.out.println("Delete Status Code: " + deleteResponse.getStatusCode());
+        System.out.println("Delete Body: " + deleteResponse.getBody().asString());
+
+        Assert.assertEquals(deleteResponse.getStatusCode(), 200);
+    }
+    }
