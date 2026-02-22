@@ -340,13 +340,3 @@ Ahmed Abdelsalame
 Automation Test Engineer
 Java | Selenium | API | TestNG
 
----
-
-If you want, I can now:
-
-* 🔥 Convert this into a very clean GitHub-ready professional README
-* 📌 Add badges (Build | Java | Selenium | TestNG)
-* 📄 Prepare a short version for job submission
-* 🧠 Create an architecture diagram for you
-
-Tell me which one you want next 👌
