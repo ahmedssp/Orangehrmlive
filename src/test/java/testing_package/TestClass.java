@@ -5,6 +5,7 @@ import Pages.P1_Dashbord;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -89,33 +90,43 @@ public class TestClass extends BaseTest {
                 "Record count did not decrease after deleting user.");
         ReporterUtil.reporter("pass", "Record count restored.");
     }
-    @Test(priority = 2, dependsOnMethods = "login")
-    public void testAddCandidateViaAPI() {
-        // Prepare API payload (example to add candidate)
-        String payload = """
-        {
-          "firstName": "John",
-          "middleName": "M",
-          "lastName": "Doe",
-          "email": "john.doe@example.com",
-          "contactNo": "1234567890",
-          "vacancyId": 1
-        }
-        """;
+    @Test(priority = 3, dependsOnMethods = "login")
+    public void testAddUserViaAPI() throws InterruptedException {
+        // Extract CSRF token as before (if needed)
+        String csrfToken = driver.findElement(By.name("csrf_token")).getAttribute("value");
 
+        // Prepare dynamic username
+        String newUsername = "AutoUser_" + System.currentTimeMillis();
+
+        // Create JSON payload
+        String payload = """
+    {
+      "userRole": "Admin",
+      "employeeName": "Ranga Akunuri",
+      "status": "Enabled",
+      "username": "%s",
+      "password": "StrongP@ssw0rd",
+      "confirmPassword": "StrongP@ssw0rd"
+    }
+    """.formatted(newUsername);
+
+        // Send POST request to add user
         Response response = RestAssured
                 .given()
-                .cookies(sessionCookies)  // Pass Selenium cookies here
+                .cookies(sessionCookies)
                 .header("Content-Type", "application/json")
+                .header("X-CSRF-Token", csrfToken)
                 .body(payload)
-                .when()
-                .post("/web/index.php/api/v2/recruitment/candidates")
+                .post("/web/index.php/api/v2/admin/users")  // confirm the correct endpoint
                 .then()
                 .extract().response();
 
-        System.out.println("Response Status Code: " + response.getStatusCode());
-        System.out.println("Response Body: " + response.getBody().asString());
+        ReporterUtil.reporter("info", "Add User API status: " + response.getStatusCode());
+        ReporterUtil.reporter("info", "Response body: " + response.getBody().asString());
 
-        Assert.assertEquals(response.getStatusCode(), 200, "Failed to add candidate via API.");
+        Assert.assertTrue(
+                response.getStatusCode() == 200 || response.getStatusCode() == 201,
+                "Failed to add user via API."
+        );
     }
 }
